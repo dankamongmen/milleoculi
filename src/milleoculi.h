@@ -11,11 +11,15 @@ public:
 	Modnsctx();
 	Modnsctx(const adns_initflags flags);
 
+	// synchronous, for now
+	void modns_lookup(const char *owner);
+	void modns_lookup(const std::string &s);
+
 private:
 	adns_state adns;
 
 };
 
-struct ModnsctxException : std::exception {};
+class ModnsctxException : std::exception {};
 
 #endif

@@ -6,12 +6,13 @@
 
 int main(void){
 	std::string req;
+	Modnsctx ctx;
 
 	std::cout << "Performing lookups (one per line, ^D to end)..." << std::endl;
 	try{
 		while(getline(std::cin,req)){
 			std::cout << "Lookup: [" << req << "]" << std::endl;
-			// FIXME queue lookup
+			ctx.modns_lookup(req);
 		}
 	}catch(std::ios_base::failure &e){
 		std::cerr << "Error reading input!" << std::endl;
