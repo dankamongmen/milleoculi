@@ -9,14 +9,13 @@ int main(void){
 	Modnsctx ctx;
 
 	std::cout << "Performing lookups (one per line, ^D to end)..." << std::endl;
-	try{
-		while(getline(std::cin,req)){
+	while(getline(std::cin,req)){
+		try{
 			std::cout << "Lookup: [" << req << "]" << std::endl;
 			ctx.modns_lookup(req);
+		}catch(Modnsctx::ModnsLookupException &e){ // continue
+			std::cerr << "Error resolving [" << req << "]" << std::endl;
 		}
-	}catch(std::ios_base::failure &e){
-		std::cerr << "Error reading input!" << std::endl;
-		return EXIT_FAILURE;
 	}
 	// FIXME wait for all lookups to proceed
 	std::cout << "All tests succeeded!" << std::endl;
