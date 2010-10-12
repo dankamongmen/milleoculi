@@ -50,13 +50,13 @@ void Modnsctx::modns_lookup(const char *owner,struct timeval *res){
 	if(adns_synchronous(adns,owner,adns_r_a,adns_qf_none,&answer)){
 		throw ModnsLookupException();
 	}
+	if(gettimeofday(&tvp,NULL)){
+		throw ModnsException();
+	}
 	// std::cerr << "ERROR " << answer->status << std::endl;
 	if(answer->status > adns_s_max_localfail){
 		throw ModnsLookupException();
 	}else if(answer->status){
-		throw ModnsException();
-	}
-	if(gettimeofday(&tvp,NULL)){
 		throw ModnsException();
 	}
 	timeval_subtract(res,&tvp,&tv);
