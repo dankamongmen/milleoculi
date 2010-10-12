@@ -4,8 +4,9 @@
 // We use the asynchronous DNS resolver library of Ian Jackson et al.
 #include <adns.h>
 #include <stdexcept>
+#include <sys/time.h> // SVR4 / 4.3BSD / POSIX.1, fair enough
 
-class Modnsctx { // Wraps C-ADNS, providing C++/sort functionality
+class Modnsctx { // Wraps C-ADNS, providing C++/timing functionality
 
 public:
 	Modnsctx();
@@ -14,8 +15,8 @@ public:
 	~Modnsctx();
 
 	// synchronous, for now
-	void modns_lookup(const char *owner);
-	void modns_lookup(const std::string &s);
+	void modns_lookup(const char *owner,struct timeval *);
+	void modns_lookup(const std::string &s,struct timeval *);
 
 	// FIXME encode errno into this
 	class ModnsException : std::exception {};
