@@ -5,6 +5,7 @@
 SRC:=src
 TAGS:=.tags
 PROJ:=milleoculi
+TDATA:=/dev/null testdata
 
 CINC:=$(wildcard $(SRC)/*.h)
 CSRC:=$(wildcard $(SRC)/*.cpp)
@@ -22,11 +23,11 @@ bin: $(CBIN)
 $(PROJ): $(CSRC) $(CINC)
 	$(CXX) $(CFLAGS) -o $@ $(CSRC) $(LFLAGS)
 
-test: all
-	for test in $(CBIN) ; do ./$$test ; done
-	for test in $(CBIN) ; do \
-		valgrind --tool=memcheck --leak-check=full ./$$test ; done
-
+test: all $(TDATA)
+	for test in $(CBIN) ; do for data in $(TDATA) ; do \
+		./$$test < $$data && \
+		valgrind --tool=memcheck --leak-check=full \
+			./$$test < $(TDATA) ; done ; done
 
 $(TAGS): $(CSRC) $(CINC)
 	$(CTAGS) -o $@ $^
