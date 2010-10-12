@@ -38,10 +38,29 @@ destroy_list(result **r){
 
 static void
 sort_into_list(result **list,result *r){
+	while(*list){
+		if(r->looktime < (*list)->looktime){
+			break;
+		}
+		list = &(*list)->next;
+	}
 	r->next = *list;
 	*list = r;
 }
 
+static void
+dump_list(const result *r){
+	int i = 0;
+
+	while(r){
+		std::cout << r->arec << ": " << r->looktime << "us" << std::endl;
+		r = r->next;
+		++i;
+	}
+	std::cout << "Sorted " << i << " result" << (i == 1 ? "." : "s.") << std::endl;
+}
+
+// FIXME can leak on failure -- bad form, but doesn't matter inside main()
 int main(void){
 	result *list = NULL;
 	std::string req;
@@ -68,7 +87,7 @@ int main(void){
 		std::cout << rtime << std::endl;
 		sort_into_list(&list,r);
 	}
-	// FIXME print sorted list
+	dump_list(list);
 	destroy_list(&list);
 	return EXIT_SUCCESS;
 }
