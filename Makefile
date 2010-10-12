@@ -12,7 +12,7 @@ CSRC:=$(wildcard $(SRC)/*.cpp)
 COBJ:=$(SRC:%.cpp:%.o)
 CBIN:=$(PROJ)
 
-LFLAGS+=-Wl,-O,--warn-common
+LFLAGS+=-Wl,-O,--warn-common -ladns
 CFLAGS+=-std=c++0x -I$(SRC) -O2 -Wall -W -Werror -g
 CTAGS?=$(shell (which ctags || echo ctags) 2> /dev/null)
 
