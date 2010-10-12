@@ -11,6 +11,8 @@ public:
 	Modnsctx();
 	Modnsctx(const adns_initflags flags);
 
+	~Modnsctx();
+
 	// synchronous, for now
 	void modns_lookup(const char *owner);
 	void modns_lookup(const std::string &s);

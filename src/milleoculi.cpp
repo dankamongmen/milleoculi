@@ -13,15 +13,21 @@ Modnsctx::Modnsctx(const adns_initflags flags){
 	}
 }
 
+Modnsctx::~Modnsctx(){
+	adns_finish(adns);
+}
+
 void Modnsctx::modns_lookup(const char *owner){
 	adns_answer *answer = NULL;
 
 	if(adns_synchronous(adns,owner,adns_r_a,adns_qf_none,&answer)){
 		throw ModnsLookupException();
 	}
-	if(answer->status){
-		// std::cerr << "ERROR " << answer->status << std::endl;
+	// std::cerr << "ERROR " << answer->status << std::endl;
+	if(answer->status > adns_s_max_localfail){
 		throw ModnsLookupException();
+	}else if(answer->status){
+		throw ModnsException();
 	}
 }
 
