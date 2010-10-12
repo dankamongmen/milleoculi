@@ -53,7 +53,6 @@ void Modnsctx::modns_lookup(const char *owner,struct timeval *res){
 	if(gettimeofday(&tvp,NULL)){
 		throw ModnsException();
 	}
-	// std::cerr << "ERROR " << answer->status << std::endl;
 	if(answer->status > adns_s_max_localfail){
 		throw ModnsLookupException();
 	}else if(answer->status){
