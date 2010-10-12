@@ -26,7 +26,7 @@ $(PROJ): $(CSRC) $(CINC)
 test: all $(TDATA)
 	for test in $(CBIN) ; do for data in $(TDATA) ; do \
 		./$$test < $$data && \
-		valgrind --tool=memcheck --leak-check=full \
+		valgrind --tool=memcheck --leak-check=full -v \
 			./$$test < $(TDATA) ; done ; done
 
 $(TAGS): $(CSRC) $(CINC)
