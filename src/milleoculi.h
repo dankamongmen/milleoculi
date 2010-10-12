@@ -9,8 +9,12 @@
 class Modnsctx { // Wraps C-ADNS, providing C++/timing functionality
 
 public:
+	// Hide at least the naming, if not the actual details, of the
+	// backing implementation...
+	typedef adns_initflags modns_initflags;
+
 	Modnsctx();
-	Modnsctx(const adns_initflags flags);
+	Modnsctx(const modns_initflags flags);
 
 	~Modnsctx();
 

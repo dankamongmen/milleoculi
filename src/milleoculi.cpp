@@ -7,7 +7,7 @@ Modnsctx::Modnsctx(){
 	}
 }
 
-Modnsctx::Modnsctx(const adns_initflags flags){
+Modnsctx::Modnsctx(const modns_initflags flags){
 	if(adns_init(&adns,flags,NULL)){
 		throw ModnsException();
 	}
