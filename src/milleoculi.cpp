@@ -21,8 +21,9 @@ Modnsctx::~Modnsctx(){
 // lessen, diminish. See {Minish}.] (Arith.) In the process of subtraction, the
 // number from which another number (the subtrahend) is to be subtracted, to
 // find the difference.
-void timeval_subtract(struct timeval *elapsed,const struct timeval *minuend,
-			const struct timeval *subtrahend){
+static void
+timeval_subtract(struct timeval *elapsed,const struct timeval *minuend,
+		const struct timeval *subtrahend){
 	*elapsed = *minuend;
 	if(elapsed->tv_usec < subtrahend->tv_usec){
 		int nsec = (subtrahend->tv_usec - elapsed->tv_usec) / 100000 + 1;
